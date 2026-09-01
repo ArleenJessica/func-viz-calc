@@ -10,11 +10,25 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ExamplesRouteImport } from './routes/examples'
 import { Route as Module1RouteImport } from './routes/module-1'
+import { Route as Module2RouteImport } from './routes/module-2'
+import { Route as Module3RouteImport } from './routes/module-3'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamplesRoute = ExamplesRouteImport.update({
+  id: '/examples',
+  path: '/examples',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Module1Route = Module1RouteImport.update({
@@ -22,31 +36,65 @@ const Module1Route = Module1RouteImport.update({
   path: '/module-1',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Module2Route = Module2RouteImport.update({
+  id: '/module-2',
+  path: '/module-2',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Module3Route = Module3RouteImport.update({
+  id: '/module-3',
+  path: '/module-3',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/examples': typeof ExamplesRoute
   '/module-1': typeof Module1Route
+  '/module-2': typeof Module2Route
+  '/module-3': typeof Module3Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/examples': typeof ExamplesRoute
   '/module-1': typeof Module1Route
+  '/module-2': typeof Module2Route
+  '/module-3': typeof Module3Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/examples': typeof ExamplesRoute
   '/module-1': typeof Module1Route
+  '/module-2': typeof Module2Route
+  '/module-3': typeof Module3Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/module-1'
+  fullPaths:
+    '/' | '/about' | '/examples' | '/module-1' | '/module-2' | '/module-3'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/module-1'
-  id: '__root__' | '/' | '/module-1'
+  to: '/' | '/about' | '/examples' | '/module-1' | '/module-2' | '/module-3'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/examples'
+    | '/module-1'
+    | '/module-2'
+    | '/module-3'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ExamplesRoute: typeof ExamplesRoute
   Module1Route: typeof Module1Route
+  Module2Route: typeof Module2Route
+  Module3Route: typeof Module3Route
 }
 
 declare module '@tanstack/react-router' {
@@ -58,6 +106,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/examples': {
+      id: '/examples'
+      path: '/examples'
+      fullPath: '/examples'
+      preLoaderRoute: typeof ExamplesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/module-1': {
       id: '/module-1'
       path: '/module-1'
@@ -65,12 +127,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Module1RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/module-2': {
+      id: '/module-2'
+      path: '/module-2'
+      fullPath: '/module-2'
+      preLoaderRoute: typeof Module2RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/module-3': {
+      id: '/module-3'
+      path: '/module-3'
+      fullPath: '/module-3'
+      preLoaderRoute: typeof Module3RouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ExamplesRoute: ExamplesRoute,
   Module1Route: Module1Route,
+  Module2Route: Module2Route,
+  Module3Route: Module3Route,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
